@@ -1,39 +1,26 @@
 version: "3.7"
 
-networks:
-    development:
-        driver: bridge
-        name: backend-development-network
-
 services:
     postgres-db:
-        hostname: postgres-db
+        hostname: postgres
         image: postgres:13
         container_name: postgres-db
-        expose:
-            - 5432
         ports:
             - 5432:5432
         environment:
-            - POSTGRES_DB=twitter
-            - POSTGRES_USER=master
-            - POSTGRES_PASSWORD=masterkey
-        networks:
-            - development
+            POSTGRES_DB: twitter
+            POSTGRES_USER: master
+            POSTGRES_PASSWORD: masterkey
 
     rust-twitter:
         image: rust-twitter:1.0
         build:
-            context: "."
-        links:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
             - postgres-db
-        restart: always
         container_name: rust-twitter
-        expose:
-            - 3000
         ports:
             - 3000:3000
         environment:
-            - DATABASE_URL=postgres://master:masterkey@postgres-db/twitter
-        networks:
-            - development
+            DATABASE_URL: postgres://master:masterkey@postgres-db/twitter
