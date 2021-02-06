@@ -1,0 +1,48 @@
+@baseUrl = http://localhost:3000
+
+########################################################################
+###########                      LIKES                       ###########
+########################################################################
+
+### List last 50 likes from a tweet
+GET {{baseUrl}}/tweets/{id}/likes HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+### Add one like to a tweet
+POST {{baseUrl}}/tweets/{id}/likes HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+### Remove one like from a tweet
+DELETE {{baseUrl}}/tweets/{id}/likes HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+########################################################################
+###########                      TWEETS                      ###########
+########################################################################
+
+### List last 50 tweets
+GET {{baseUrl}}/tweets HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+### Create a tweet
+POST {{baseUrl}}/tweets HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "message": "This is a tweet"
+}
+
+### Find a tweet by id
+GET {{baseUrl}}/tweets/{id} HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+### Delete a tweet by id
+DELETE {{baseUrl}}/tweets/{id} HTTP/1.1
+Accept: application/json
+Content-Type: application/json
