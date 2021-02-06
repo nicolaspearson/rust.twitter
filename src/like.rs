@@ -23,6 +23,7 @@ pub struct Like {
 }
 
 impl Like {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
             id: Uuid::new_v4().to_string(),

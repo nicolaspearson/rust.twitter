@@ -46,7 +46,7 @@ impl Tweet {
     pub fn add_likes(&self, likes: Vec<Like>) -> Self {
         Self {
             id: self.id.clone(),
-            created_at: self.created_at.clone(),
+            created_at: self.created_at,
             message: self.message.clone(),
             likes,
         }
