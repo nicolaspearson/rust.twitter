@@ -21,8 +21,5 @@ LICENSE
 .prettierrc
 api.http
 
-# Rust files
-Cargo.lock
-
 # Generated files
 target

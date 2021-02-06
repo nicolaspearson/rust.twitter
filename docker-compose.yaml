@@ -6,10 +6,10 @@ networks:
         name: backend-development-network
 
 services:
-    postgres:
-        hostname: postgres
+    postgres-db:
+        hostname: postgres-db
         image: postgres:13
-        container_name: postgres
+        container_name: postgres-db
         expose:
             - 5432
         ports:
@@ -18,5 +18,22 @@ services:
             - POSTGRES_DB=twitter
             - POSTGRES_USER=master
             - POSTGRES_PASSWORD=masterkey
+        networks:
+            - development
+
+    rust-twitter:
+        image: rust-twitter:1.0
+        build:
+            context: "."
+        links:
+            - postgres-db
+        restart: always
+        container_name: rust-twitter
+        expose:
+            - 3000
+        ports:
+            - 3000:3000
+        environment:
+            - DATABASE_URL=postgres://master:masterkey@postgres-db/twitter
         networks:
             - development

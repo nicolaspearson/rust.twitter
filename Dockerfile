@@ -1,30 +1,19 @@
-# builder stage
-FROM rust:latest as cargo-build
-
-RUN apt-get update && apt-get install libpq-dev musl-tools -y
-RUN rustup target add x86_64-unknown-linux-musl
-
+FROM rust:1-stretch as builder
+# Choose a workdir
 WORKDIR /usr/src/app
+# Create blank project
+RUN USER=root cargo init
+# Copy Cargo.toml to get dependencies
+COPY Cargo.toml .
+# This is a dummy build to get the dependencies cached
+RUN cargo build --release
+# Copy sources
+COPY src src
+# Build app
+RUN cargo build --release
 
-COPY . .
-
-RUN RUSTFLAGS=-Clinker=musl-gcc cargo build --release --target=x86_64-unknown-linux-musl
-
-# final stage
-FROM alpine:latest
-
-RUN apk add postgresql-dev
-
-RUN addgroup -g 1000 app
-RUN adduser -D -s /bin/sh -u 1000 -G app app
-
-WORKDIR /home/app/bin/
-
-COPY --from=cargo-build /usr/src/app/target/x86_64-unknown-linux-musl/release/rust-twitter .
-
-RUN chown app:app rust-twitter
-USER app
-
-EXPOSE 3000
-
-CMD ["./rust-twitter"]
+FROM debian:stretch-slim
+# Copy bin from builder to this new image
+COPY --from=builder /usr/src/app/target/release/rust-twitter /bin/
+# Default command, run app
+CMD rust-twitter

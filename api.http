@@ -5,17 +5,17 @@
 ########################################################################
 
 ### List last 50 likes from a tweet
-GET {{baseUrl}}/tweets/{id}/likes HTTP/1.1
+GET {{baseUrl}}/tweets/3ca4dcf5-2ed0-414a-a6e2-c955d0df3ddf/likes HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ### Add one like to a tweet
-POST {{baseUrl}}/tweets/{id}/likes HTTP/1.1
+POST {{baseUrl}}/tweets/3ca4dcf5-2ed0-414a-a6e2-c955d0df3ddf/likes HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ### Remove one like from a tweet
-DELETE {{baseUrl}}/tweets/{id}/likes HTTP/1.1
+DELETE {{baseUrl}}/tweets/3ca4dcf5-2ed0-414a-a6e2-c955d0df3ddf/likes HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -38,11 +38,11 @@ Content-Type: application/json
 }
 
 ### Find a tweet by id
-GET {{baseUrl}}/tweets/{id} HTTP/1.1
+GET {{baseUrl}}/tweets/3ca4dcf5-2ed0-414a-a6e2-c955d0df3ddf HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ### Delete a tweet by id
-DELETE {{baseUrl}}/tweets/{id} HTTP/1.1
+DELETE {{baseUrl}}/tweets/3ca4dcf5-2ed0-414a-a6e2-c955d0df3ddf HTTP/1.1
 Accept: application/json
 Content-Type: application/json
