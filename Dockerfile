@@ -20,11 +20,11 @@ RUN adduser -D -s /bin/sh -u 1000 -G app app
 
 WORKDIR /home/app/bin/
 
-COPY --from=cargo-build /usr/src/app/target/x86_64-unknown-linux-musl/release/twitter-clone-rust .
+COPY --from=cargo-build /usr/src/app/target/x86_64-unknown-linux-musl/release/rust-twitter .
 
-RUN chown app:app twitter-clone-rust
+RUN chown app:app rust-twitter
 USER app
 
-EXPOSE 9090
+EXPOSE 3000
 
-CMD ["./twitter-clone-rust"]
+CMD ["./rust-twitter"]

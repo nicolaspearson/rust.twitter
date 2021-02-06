@@ -178,10 +178,9 @@ pub async fn create(tweet_req: Json<TweetRequest>, pool: Data<DBPool>) -> HttpRe
 
 /// find a tweet by its id `/tweets/{id}`
 #[get("/tweets/{id}")]
-pub async fn get(path: Path<(String,)>, pool: Data<DBPool>) -> HttpResponse {
+pub async fn get(Path((id,)): Path<(String,)>, pool: Data<DBPool>) -> HttpResponse {
     let conn = pool.get().expect(CONNECTION_POOL_ERROR);
-    let tweet =
-        web::block(move || find_tweet(Uuid::from_str(path.0.as_str()).unwrap(), &conn)).await;
+    let tweet = web::block(move || find_tweet(Uuid::from_str(id.as_str()).unwrap(), &conn)).await;
 
     match tweet {
         Ok(tweet) => {
@@ -201,11 +200,11 @@ pub async fn get(path: Path<(String,)>, pool: Data<DBPool>) -> HttpResponse {
 
 /// delete a tweet by its id `/tweets/{id}`
 #[delete("/tweets/{id}")]
-pub async fn delete(path: Path<(String,)>, pool: Data<DBPool>) -> HttpResponse {
+pub async fn delete(Path((id,)): Path<(String,)>, pool: Data<DBPool>) -> HttpResponse {
     // in any case return status 204
     let conn = pool.get().expect(CONNECTION_POOL_ERROR);
 
-    let _ = web::block(move || delete_tweet(Uuid::from_str(path.0.as_str()).unwrap(), &conn)).await;
+    let _ = web::block(move || delete_tweet(Uuid::from_str(id.as_str()).unwrap(), &conn)).await;
 
     HttpResponse::NoContent()
         .content_type(APPLICATION_JSON)

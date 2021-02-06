@@ -23,6 +23,7 @@ pub type DBPooledConnection = PooledConnection<ConnectionManager<PgConnection>>;
 async fn main() -> io::Result<()> {
     env::set_var("RUST_LOG", "actix_web=debug,actix_server=info");
     env_logger::init();
+    dotenv::dotenv().ok();
 
     // set up database connection pool
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL");

@@ -1,0 +1,28 @@
+# Logs
+logs
+*.log
+
+# Docker files
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Git files
+.git
+.gitignore
+
+# Miscellaneous files
+README.md
+LICENSE
+.vscode
+.DS_Store
+.env
+.editorconfig
+.prettierrc
+api.http
+
+# Rust files
+Cargo.lock
+
+# Generated files
+target
